@@ -2,7 +2,12 @@
 import { useCallback } from 'react';
 import ReactFlow, { Connection, ConnectionLineType, Edge, Node, Position, addEdge, useEdgesState, useNodesState } from 'reactflow';
 import dagre from "@dagrejs/dagre";
-import 'reactflow/dist/style.css';
+import 'reactflow/dist/base.css';
+import CustomNode from './CustomNode';
+
+const nodeTypes = {
+  custom: CustomNode
+}
 
 type DirectionType = 'TB' | 'LR';
 
@@ -69,11 +74,12 @@ export const Flow = ({ nodeData, edgeData }: FlowProps) => {
     <ReactFlow
       nodes={nodes}
       edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
+      // onNodesChange={onNodesChange}
+      // onEdgesChange={onEdgesChange}
       // onConnect={onConnect}
       // connectionLineType={ConnectionLineType.Bezier}
       nodesConnectable={false}
+      nodeTypes={nodeTypes}
       fitView
     />
   );
