@@ -1,18 +1,18 @@
 import { ReactNode } from "react";
-import { LogoArea } from "./_components/LogoArea";
+import { LogoLink } from "./_components/LogoLink";
 import { NavMenu } from "./_components/NavMenu";
-import { UserMenu } from "./_components/UserMenu";
+import { UserDropdown } from "./_components/UserDropdown";
 
 export default function AfterLoginLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="sm:flex">
-      <aside className="flex w-full sm:w-[231px] sm:flex-col">
-        <LogoArea />
-        <UserMenu />
+      <aside className="flex w-full min-w-[231px] sm:w-[231px] sm:flex-col">
+        <LogoLink />
+        <UserDropdown />
         <NavMenu />
       </aside>
-      <main>
+      <main className="w-full">
         {children}
       </main>
     </div>

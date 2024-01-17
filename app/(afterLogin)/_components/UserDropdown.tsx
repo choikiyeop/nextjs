@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
-export const UserMenu = () => {
+export const UserDropdown = () => {
 
   return (
     <div className="flex w-full items-center justify-end px-4 bg-slate-700 sm:h-[132px]">

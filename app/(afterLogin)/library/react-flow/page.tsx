@@ -32,8 +32,8 @@ export default function ReactFlowPage() {
 
   return (
     <div>
-      <div className="border w-[1000px] h-[500px] mx-auto mt-48">
-        <div className="grow h-full">
+      <div className="border w-full h-[500px] mt-48">
+        <div className="h-full">
           <Sidebar />
           <Flow nodeData={initialNodes} edgeData={initialEdges}/>
         </div>
