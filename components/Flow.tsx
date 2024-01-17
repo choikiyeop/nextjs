@@ -1,6 +1,6 @@
 'use client'
-import { useCallback } from 'react';
-import ReactFlow, { Connection, ConnectionLineType, Edge, Node, Position, addEdge, useEdgesState, useNodesState } from 'reactflow';
+import { useCallback, useState, DragEvent } from 'react';
+import ReactFlow, { Connection, ConnectionLineType, Edge, Node, Position, ReactFlowInstance, addEdge, useEdgesState, useNodesState, useReactFlow } from 'reactflow';
 import dagre from "@dagrejs/dagre";
 import 'reactflow/dist/base.css';
 import CustomNode from './CustomNode';
@@ -52,10 +52,14 @@ interface FlowProps {
   edgeData: Edge[];
 }
 
+let id = 4;
+const getId = () => `${id++}`;
+
 export const Flow = ({ nodeData, edgeData }: FlowProps) => {
   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(nodeData, edgeData);
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
+  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance>();
 
   const onConnect = useCallback((params: Edge | Connection) => {
     setEdges((eds) =>
@@ -70,16 +74,53 @@ export const Flow = ({ nodeData, edgeData }: FlowProps) => {
     setEdges([...layoutedEdges]);
   }, [nodes, edges]);
 
+  const onDragOver = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  const onDrop = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    const type = e.dataTransfer.getData('application/reactflow');
+    if (typeof type === 'undefined' || !type) return;
+    
+    const position = reactFlowInstance?.screenToFlowPosition({
+      x: e.clientX,
+      y: e.clientY,
+    });
+    const newNode: Node = {
+      id: getId(),
+      type,
+      position,
+      data: {
+        icon: "아이콘",
+        type: "타입",
+        name: "이름",
+      }
+    }
+    
+    setNodes((nds) => nds.concat(newNode));
+    console.log(nodes)
+  }, [reactFlowInstance]);
+
+  const onInit = (e: ReactFlowInstance) => {
+    setReactFlowInstance(e);
+  }
+
   return (
     <ReactFlow
       nodes={nodes}
       edges={edges}
-      // onNodesChange={onNodesChange}
-      // onEdgesChange={onEdgesChange}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange}
       // onConnect={onConnect}
       // connectionLineType={ConnectionLineType.Bezier}
       nodesConnectable={false}
       nodeTypes={nodeTypes}
+      onInit={onInit}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
       fitView
     />
   );

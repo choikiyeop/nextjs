@@ -1,4 +1,6 @@
+'use client';
 import { Flow } from "@/components/Flow";
+import { Sidebar } from "./_components/Sidebar";
 
 const initialNodes = [
   {
@@ -22,16 +24,19 @@ const initialNodes = [
 ]
 
 const initialEdges = [
-  { id: 'e1-2', source: '1', target: '2', label: "Yes" },
+  { id: 'e1-1', source: '1', target: '2', label: "Yes" },
   { id: 'e1-2', source: '1', target: '3', label: "NO" },
 ]
 
 export default function ReactFlowPage() {
-  
+
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <div className="border w-1/2 h-1/2 mx-auto">
-        <Flow nodeData={initialNodes} edgeData={initialEdges}/>
+      <div className="border w-[1000px] h-[500px] mx-auto mt-48">
+        <div className="grow h-full">
+          <Sidebar />
+          <Flow nodeData={initialNodes} edgeData={initialEdges}/>
+        </div>
       </div>
     </div>
   )
