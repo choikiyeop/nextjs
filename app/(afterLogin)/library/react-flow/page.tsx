@@ -31,7 +31,7 @@ const initialEdges = [
 export default function ReactFlowPage() {
 
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <div>
       <div className="border w-[1000px] h-[500px] mx-auto mt-48">
         <div className="grow h-full">
           <Sidebar />
