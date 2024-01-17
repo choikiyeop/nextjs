@@ -88,7 +88,7 @@ export const Flow = ({ nodeData, edgeData }: FlowProps) => {
     const position = reactFlowInstance?.screenToFlowPosition({
       x: e.clientX,
       y: e.clientY,
-    });
+    })?? { x: 0, y: 0 };
     const newNode: Node = {
       id: getId(),
       type,
