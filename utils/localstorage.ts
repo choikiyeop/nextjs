@@ -1,6 +1,7 @@
 /**
  * Next.js는 SSR 후 CSR을 실행한다. 따라서 SSR 상태에서는 window 객체가 없기 때문에
  * 클라이언트 페이지가 마운트 될때까지 기다려야한다.
+ * 다른 방법은 useEffect 훅을 사용하면 CSR에서만 실행되므로 localStorage에 접근 가능하다.
  */
 class LocalStorage {
   constructor() {}
