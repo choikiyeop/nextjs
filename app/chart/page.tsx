@@ -48,7 +48,7 @@ const chartdata = [
   },
   {
     date: "Oct 23",
-    SolarPanels: 2837,
+    SolarPanels: 900,
     Inverters: 2473,
   },
   {
